@@ -9,6 +9,7 @@
 /vendor/laravel/framework/src/Illuminate/Contracts/Log/*
 /vendor/laravel/framework/src/Illuminate/Http/StreamedEvent.php
 /vendor/laravel/framework/src/Illuminate/Log/Context/ContextLogProcessor.php
+/vendor/laravel/framework/src/Illuminate/Log/vendor/
 /database/database.sqlite
 .env.backup
 .env.production
