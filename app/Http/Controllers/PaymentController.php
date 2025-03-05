@@ -7,7 +7,8 @@ use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller{
-    public function pay(){
+    
+    public function pay(Request $request){
         $data = [
             'data' => [
                'attributes' => [
