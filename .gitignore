@@ -6,6 +6,9 @@
 /storage/*.key
 /storage/pail
 /storage/*
+/vendor/laravel/framework/src/Illuminate/Contracts/Log/*
+/vendor/laravel/framework/src/Illuminate/Http/StreamedEvent.php
+/vendor/laravel/framework/src/Illuminate/Log/Context/ContextLogProcessor.php
 .env.backup
 .env.production
 .phpactor.json
