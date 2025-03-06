@@ -41,12 +41,12 @@
             ✖
         </button>
         <div class="flex flex-col items-center">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-16 mb-2">
+            <img src="{{ asset('images/qualityeduclogo.png') }}" alt="Logo" class="w-16 mb-2">
             <h2 class="text-xl font-semibold text-red-800">Welcome to Quality Education</h2>
         </div>
         <div class="mt-4">
             <button class="w-full flex items-center justify-center border px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="w-5 h-5 mr-2">
+                <img src="{{ asset('images/googlelogo.png') }}" class="w-5 h-5 mr-2">
                 Continue with Google
             </button>
             <button class="w-full flex items-center justify-center border px-4 py-2 rounded-md text-gray-700 mt-2 hover:bg-gray-100">
