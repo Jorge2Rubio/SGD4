@@ -5,7 +5,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DonationController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage');
 });
 
 Route::get('/pay', [PaymentController::class, 'pay']);
