@@ -12,9 +12,8 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/donate', function () {
-    return view('donate');
+    return view('donate-now');
 })->name('donate');
-
 
 Route::get('/', function () {
     return view('home');
@@ -36,7 +35,6 @@ Route::get('/profile', function () {
 Route::get('/signup', function () {
     return view('signup');
 })->name('signup');
-
 
 Route::get('/about', function(){
     return view('about');
