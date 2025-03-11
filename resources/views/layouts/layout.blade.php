@@ -18,7 +18,7 @@
             <span>QUALITY EDUCATION</span>
         </div>
         <div class="flex items-center space-x-4">
-            <a href="{{ url('/home') }}" class="hover:underline">HOME</a>
+            <a href="{{ url('/') }}" class="hover:underline">HOME</a>
             <a href="{{ url('/news') }}" class="hover:underline">NEWS</a>
             <a href="{{ url('/about') }}" class="hover:underline">ABOUT</a>
             <a href="{{ url('/donate') }}" class="hover:underline">DONATE</a>
