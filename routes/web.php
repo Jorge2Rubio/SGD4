@@ -4,21 +4,30 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DonationController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+Route::get('/donate', function () {
+    return view('donate');
+})->name('donate');
 
-Route::get('/home', function () {
+
+Route::get('/', function () {
     return view('home');
 })->name('home');
 
 Route::get('/login', function () {
     return view('login');
 })->name('login');
+
+Route::get('/donate-now', function () {
+    return view('donate-now');
+})->name('donate-now');
+
 
 Route::get('/profile', function () {
     return view('profile');
