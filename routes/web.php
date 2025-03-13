@@ -13,7 +13,7 @@ Route::get('/about', function () {
 
 Route::get('/donate', function () {
     return view('donate-now');
-})->name('donate');
+})->name('donate-now');
 
 Route::get('/', function () {
     return view('home');
@@ -22,11 +22,6 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
-
-Route::get('/donate-now', function () {
-    return view('donate-now');
-})->name('donate-now');
-
 
 Route::get('/profile', function () {
     return view('profile');
@@ -42,7 +37,6 @@ Route::get('/about', function(){
 
 
 
-Route::get('/pay', [PaymentController::class, 'pay']);
+Route::post('/pay', [PaymentController::class, 'pay'])->name('payment.pay');
 Route::get('/success', [PaymentController::class, 'success']);
 Route::get('/listUser', [PaymentController::class, 'listUser']);
-Route::get('/donate', [DonationController::class, 'index']);
