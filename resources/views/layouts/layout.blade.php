@@ -10,6 +10,13 @@
     
 </head>
 <body class="bg-gray-100">
+    <div id="g_id_onload"
+        data-client_id="733889831511-021q7bbm5b3goc370sbe7lhsqqbhuhf7.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleCredentialResponse">
+    </div>
+
     <!-- Navigation Bar -->
     <nav class="bg-red-800 text-white p-4 flex justify-between">
         <div class="text-lg font-bold flex items-center">
@@ -46,10 +53,7 @@
             <h2 class="text-xl font-semibold text-red-800">Welcome to Quality Education</h2>
         </div>
         <div class="mt-4">
-            <button class="w-full flex items-center justify-center border px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-                <img src="{{ asset('images/googlelogo.png') }}" class="w-5 h-5 mr-2">
-                Continue with Google
-            </button>
+            <button class="g_id_signin w-full flex items-center justify-center border px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100" data-type="standard"></button>
             <button class="w-full flex items-center justify-center border px-4 py-2 rounded-md text-gray-700 mt-2 hover:bg-gray-100">
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M21 4H3a2 2 0 00-2 2v12a2 2 0 002 2h18a2 2 0 002-2V6a2 2 0 00-2-2zm-3 2l-6 4-6-4h12zm-6 6l6-4v10H6V8l6 4z"></path>
@@ -70,6 +74,24 @@
 
     <!-- Main Content -->
     @yield('content')
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("JWT ID Token:", response.credential);
     
+            // Decode the JWT token to get user details
+            const userInfo = parseJwt(response.credential);
+            console.log("User Info:", userInfo);
+    
+        }
+    
+        // Function to decode JWT Token
+        function parseJwt(token) {
+            let base64Url = token.split('.')[1]; // Get the payload part
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            return JSON.parse(atob(base64)); // Decode Base64 to JSON
+        }
+    </script>
+    </script>
 </body>
 </html>
