@@ -38,8 +38,10 @@ class AdminPanelProvider extends PanelProvider
             ])->plugins([Blog::make()])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
+                \App\Filament\Widgets\MonthlyDonationSummary::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -52,6 +54,9 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->resources([
+                \App\Filament\Resources\DonationResource::class,
+            ])            
             ->authMiddleware([
                 Authenticate::class,
             ]);

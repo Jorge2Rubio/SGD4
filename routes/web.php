@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DonationController;
-
+use App\Http\Controllers\GoogleController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -40,3 +40,6 @@ Route::get('/about', function(){
 Route::post('/pay', [PaymentController::class, 'pay'])->name('payment.pay');
 Route::get('/success', [PaymentController::class, 'success']);
 Route::get('/listUser', [PaymentController::class, 'listUser']);
+
+Route::get('/auth/redirect/google', [GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/callback/google', [GoogleController::class, 'callback']);
