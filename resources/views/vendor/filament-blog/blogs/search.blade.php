@@ -13,7 +13,7 @@
                    <x-blog-card :post="$post"/>
                     @empty
                         <div class="flex col-span-3 justify-center w-full">
-                            <h2 class="text-2xl text-gray-300 font-semibold">No posts found</h2>
+                            <h2 class="text-2xl text-gray-300 font-semibold">No lesson found</h2>
                         </div>
                 @endforelse
             </div>

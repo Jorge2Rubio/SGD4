@@ -14,24 +14,18 @@ class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
-
-    protected static ?string $navigationGroup = 'Blog';
-
-    protected static ?int $navigationSort = 5;
+    protected static bool $shouldRegisterNavigation = false; // ✅ This hides it from the sidebar
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema(Comment::getForm());
+        return $form->schema(Comment::getForm());
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                UserPhotoName::make('user')
-                    ->label('User'),
+                UserPhotoName::make('user')->label('User'),
                 Tables\Columns\TextColumn::make('post.title')
                     ->numeric()
                     ->limit(20)
@@ -41,18 +35,12 @@ class CommentResource extends Resource
                     ->limit(20),
                 Tables\Columns\ToggleColumn::make('approved')
                     ->beforeStateUpdated(function ($record, $state) {
-                        if ($state) {
-                            $record->approved_at = now();
-                        } else {
-                            $record->approved_at = null;
-                        }
-
+                        $record->approved_at = $state ? now() : null;
                         return $state;
                     }),
                 Tables\Columns\TextColumn::make('approved_at')
                     ->sortable()
                     ->placeholder('Not approved yet'),
-
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -85,9 +73,7 @@ class CommentResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

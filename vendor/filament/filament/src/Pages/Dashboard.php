@@ -7,17 +7,19 @@ use Filament\Support\Facades\FilamentIcon;
 use Filament\Widgets\Widget;
 use Filament\Widgets\WidgetConfiguration;
 use Illuminate\Contracts\Support\Htmlable;
+use Filament\Pages\Page;
 
 class Dashboard extends Page
 {
     protected static string $routePath = '/';
-
     protected static ?int $navigationSort = -2;
 
     /**
      * @var view-string
      */
     protected static string $view = 'filament-panels::pages.dashboard';
+
+    protected static ?string $navigationIcon = 'heroicon-o-home';
 
     public static function getNavigationLabel(): string
     {
@@ -43,7 +45,9 @@ class Dashboard extends Page
      */
     public function getWidgets(): array
     {
-        return Filament::getWidgets();
+        return [
+            \App\Filament\Widgets\DashboardStats::class,
+        ];
     }
 
     /**

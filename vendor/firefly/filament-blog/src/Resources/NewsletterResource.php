@@ -2,35 +2,22 @@
 
 namespace Firefly\FilamentBlog\Resources;
 
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
-use Firefly\FilamentBlog\Models\NewsLetter;
+use Firefly\FilamentBlog\Models\Newsletter;
 
 class NewsletterResource extends Resource
 {
-    protected static ?string $model = NewsLetter::class;
+    protected static ?string $model = Newsletter::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
-
-    protected static ?string $navigationGroup = 'Blog';
-
-    protected static ?int $navigationSort = 6;
+    protected static bool $shouldRegisterNavigation = false; // ✅ Hide Newsletter from sidebar
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(100),
-                Forms\Components\Toggle::make('subscribed')
-                    ->default(true)
-                    ->required()->columnSpanFull(),
-            ])->columns(2);
+        return $form->schema(Newsletter::getForm());
     }
 
     public static function table(Table $table): Table
@@ -38,23 +25,17 @@ class NewsletterResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('email')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\ToggleColumn::make('subscribed')
-                    ->label('Subscribed'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -65,17 +46,13 @@ class NewsletterResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => \Firefly\FilamentBlog\Resources\NewsletterResource\Pages\ListNewsletters::route('/'),
-            'create' => \Firefly\FilamentBlog\Resources\NewsletterResource\Pages\CreateNewsletter::route('/create'),
-            'edit' => \Firefly\FilamentBlog\Resources\NewsletterResource\Pages\EditNewsletter::route('/{record}/edit'),
         ];
     }
 }

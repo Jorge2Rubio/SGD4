@@ -1,26 +1,31 @@
-@props(['title' =>'Quality Education', 'logo' => null] )
+@props(['title' => 'Quality Education', 'logo' => null])
+
 <header @click.outside="showSearchModal = false" x-data="{ showSearchModal: false }" class="sticky top-0 z-[94035] mb-4">
-    <div class="py-4 bg-white border-b">
+    <div class="py-4 bg-red-800 border-b">
         <div class="container mx-auto">
             <div class="flex justify-between gap-x-4">
+                
+                <!-- Logo / Title Section -->
                 <div class="flex items-center gap-x-10">
-                    <a href="{{config('filamentblog.route.home.url') ?? config('app.url')}}">
+                    <a href="/" class="flex items-center gap-2">
                         @if($logo)
-                        <img src="{{ $logo }}" alt="{{ $title }}" class="max-h-[60px]" />
+                            <img src="{{ $logo }}" alt="{{ $title }}" class="max-h-[60px]" />
                         @else
-                        <strong class="text-2xl  text-primary-600">
-                            {{ $title ?: 'Quality Education' }}
-                        </strong>
+                            <strong class="text-2xl text-white hover:underline">
+                                {{ $title }}
+                            </strong>
                         @endif
                     </a>
+
+                    <!-- Navigation Links -->
                     <div class="hidden gap-x-10 sm:flex">
-                        <a href="{{ route('filamentblog.post.index') }}" class="font-semibold text-md hover:text-primary-600">
-                            <span>Blogs</span>
+                        <a href="{{ route('filamentlessons.post.index') }}" class="font-semibold text-md text-white hover:text-gray-300">
+                            <span>Lessons</span>
                         </a>
                         <div class="relative group">
-                            <button class="flex items-center justify-center font-semibold text-md hover:text-primary-600 gap-x-2">
+                            <button class="flex items-center justify-center font-semibold text-md text-white hover:text-gray-300 gap-x-2">
                                 <span>Categories</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4" viewBox="0 0 24 24">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 text-white" viewBox="0 0 24 24">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19 9l-7 6l-7-6" />
                                 </svg>
                             </button>
@@ -30,24 +35,31 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Search Bar Section -->
                 <div class="flex items-center ml-auto gap-x-10">
-                    <form action="{{ route('filamentblog.post.search') }}" method="GET">
+                    <form action="{{ route('filamentlessons.post.search') }}" method="GET">
                         <div class="relative">
-                            <div class="relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="absolute w-5 h-5 -translate-y-1/2 pointer-events-none left-5 top-1/2 text-slate-500" viewBox="0 0 24 24">
-                                    <g fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <circle cx="11.5" cy="11.5" r="9.5" />
-                                        <path stroke-linecap="round" d="M18.5 18.5L22 22" />
-                                    </g>
-                                </svg>
-                                <input placeholder="Search" type="text" name="query" value="{{ request()->get('query') }}" class="w-full px-6 py-3 pl-12 text-sm font-medium text-gray-800 placeholder-gray-400 border rounded-full outline-none bg-white/10 placeholder:text-slate-500 focus:ring-0" />
-                            </div>
-                            @error('query')
-                            <span class="text-xs text-red-500">{{ $message }}</span>
-                            @enderror
+                            <svg xmlns="http://www.w3.org/2000/svg" class="absolute w-5 h-5 -translate-y-1/2 pointer-events-none left-5 top-1/2 text-white" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="11.5" cy="11.5" r="9.5" />
+                                    <path stroke-linecap="round" d="M18.5 18.5L22 22" />
+                                </g>
+                            </svg>
+                            <input 
+                                placeholder="Search" 
+                                type="text" 
+                                name="query" 
+                                value="{{ request()->get('query') }}" 
+                                class="w-full px-6 py-3 pl-12 text-sm font-medium text-white placeholder-white border rounded-full outline-none bg-white/10 focus:ring-0" 
+                            />
                         </div>
+                        @error('query')
+                            <span class="text-xs text-red-500">{{ $message }}</span>
+                        @enderror
                     </form>
                 </div>
+
             </div>
         </div>
     </div>

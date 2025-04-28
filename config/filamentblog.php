@@ -2,30 +2,30 @@
 
 /**
  * |--------------------------------------------------------------------------
- * | Set up your blog configuration
+ * | Set up your lessons configuration
  * |--------------------------------------------------------------------------
  * |
  * | The route configuration is for setting up the route prefix and middleware.
  * | The user configuration is for setting up the user model and columns.
- * | The seo configuration is for setting up the default meta tags for the blog.
- * | The recaptcha configuration is for setting up the recaptcha for the blog.
+ * | The seo configuration is for setting up the default meta tags for the lessons.
+ * | The recaptcha configuration is for setting up the recaptcha for the lessons.
  */
 
 use Firefly\FilamentBlog\Models\User;
 
 return [
     'tables' => [
-        'prefix' => 'fblog_', // prefix for all blog tables
+        'prefix' => 'fblog_', // keep this unless you want to rename all database tables
     ],
     'route' => [
-        'prefix' => 'blogs',
+        'prefix' => 'lessons', // ✅ changed from 'blogs' to 'lessons'
         'middleware' => ['web'],
         //        'home' => [
-        //            'name' => 'filamentblog.home',
+        //            'name' => 'filamentlessons.home',
         //            'url' => env('APP_URL'),
         //        ],
         'login' => [
-            'name' => 'filamentblog.post.login',
+            'name' => 'filamentlessons.post.login', // ✅ changed from 'filamentblog.post.login'
         ],
     ],
     'user' => [
@@ -38,8 +38,8 @@ return [
     ],
     'seo' => [
         'meta' => [
-            'title' => 'Filament Blog',
-            'description' => 'This is filament blog seo meta description',
+            'title' => 'Filament Lessons', // ✅ changed from 'Filament Blog'
+            'description' => 'This is filament lessons seo meta description', // ✅ changed
             'keywords' => [],
         ],
     ],

@@ -11,11 +11,20 @@ class PaymentController extends Controller
 {
     public function pay(Request $request)
     {
-        $amount = $request->input('amount') * 100;
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'amount' => 'required|numeric|min:2000'
+        ]);
 
-        if ($amount < 200000) {
-            return back()->with('error', 'Minimum donation amount is PHP 2000.00');
-        }
+        $amount = $validated['amount'] * 100;
+
+        // Save donor info in session
+        Session::put('donor_info', [
+            'name' => $validated['first_name'] . ' ' . $validated['last_name'],
+            'email' => $validated['email'],
+        ]);
 
         $data = [
             'data' => [
@@ -32,7 +41,11 @@ class PaymentController extends Controller
                     'payment_method_types' => ['card', 'gcash'],
                     'success_url' => url('/success'),
                     'cancel_url' => url('/cancel'),
-                    'description' => 'Donation Payment'
+                    'description' => 'Donation Payment',
+                    'billing' => [
+                        'name' => $validated['first_name'] . ' ' . $validated['last_name'],
+                        'email' => $validated['email'],
+                    ]
                 ],
             ]
         ];
@@ -56,6 +69,7 @@ class PaymentController extends Controller
     public function success()
     {
         $sessionId = Session::get('session_id');
+        $donorInfo = Session::get('donor_info');
 
         if (!$sessionId) {
             return redirect('/')->with('error', 'No active session found.');
@@ -74,16 +88,19 @@ class PaymentController extends Controller
 
         $attributes = $response->data->attributes;
 
+        $donorName = $attributes->billing->name ?? $donorInfo['name'] ?? 'Anonymous';
+        $donorEmail = $attributes->billing->email ?? $donorInfo['email'] ?? null;
+
         Donation::create([
             'checkout_id' => $sessionId,
-            'donor_name' => $attributes->billing->name ?? 'Anonymous',
-            'email' => $attributes->billing->email ?? null,
+            'donor_name' => $donorName,
+            'email' => $donorEmail,
             'amount' => $attributes->line_items[0]->amount / 100,
             'status' => $attributes->status ?? 'paid',
         ]);
 
         return view('success', [
-            'donorName' => $attributes->billing->name ?? 'Anonymous',
+            'donorName' => $donorName,
             'amount' => $attributes->line_items[0]->amount / 100,
             'sessionId' => $sessionId,
         ]);

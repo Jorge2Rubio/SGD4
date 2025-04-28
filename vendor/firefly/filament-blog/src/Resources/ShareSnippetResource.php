@@ -15,7 +15,7 @@ class ShareSnippetResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-share';
 
-    protected static ?string $navigationGroup = 'Blog';
+    protected static ?string $navigationGroup = 'Lessons';
 
     protected static ?int $navigationSort = 7;
 

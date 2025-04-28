@@ -6,7 +6,7 @@
     <!-- Slides Wrapper -->
     <div class="flex transition-transform duration-500 ease-in-out h-full w-full"
          :style="'transform: translateX(-' + currentSlide * 100 + '%)'">
-         
+
         <!-- Slide 1 - What We Do -->
         <div class="min-w-full h-full flex flex-col justify-center items-center bg-gray-100 text-gray-900">
             <h1 class="text-5xl font-bold mb-4 text-red-800">WHAT WE DO</h1>
@@ -50,35 +50,40 @@
             </div>
 
             <div class="relative w-full h-60 flex items-center justify-center bg-cover bg-center"
-                style="background-image: url('your-image-url.jpg');">
+                style="background-image: url('{{ asset('images/about-banner.jpg') }}');">
                 <div class="absolute inset-0 bg-red-800 bg-opacity-70"></div>
                 <div class="relative text-center">
-                    <h2 class="text-3xl font-bold">LOREM IPSUM DOLOR SIT AMET.</h2>
+                    <h2 class="text-3xl font-bold">Empowering Through Education</h2>
                     <p class="mt-2 text-lg w-3/4 mx-auto">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Our mission is to make quality education accessible for every child, regardless of background or circumstances. 
+                        We collaborate with communities to build learning environments that spark curiosity, creativity, and lifelong learning.
                     </p>
                 </div>
             </div>
 
             <div class="text-center py-8">
                 <h1 class="text-4xl font-bold">CONTACT US</h1>
+                <p class="mt-4 text-lg w-3/4 mx-auto text-gray-200">
+                    Want to get involved or learn more? Reach out to us anytime through our contact page or visit our local centers.
+                </p>
             </div>
         </div>
 
-        <!-- Slide 3 - Why It Matters? -->
+        <!-- Slide 3 - Why It Matters -->
         <div class="relative min-w-full h-screen flex flex-col bg-red-800 text-white">
             <div class="text-center py-6">
                 <h1 class="text-4xl font-bold">WHY IT MATTERS?</h1>
             </div>
 
             <div class="relative w-full h-full flex items-center justify-center bg-cover bg-center px-12 text-center"
-                style="background-image: url('your-image-url.jpg');">
+                style="background-image: url('{{ asset('images/why-banner.jpg') }}');">
                 <div class="absolute inset-0 bg-red-800 bg-opacity-80"></div>
                 <div class="relative max-w-2xl">
-                    <h2 class="text-3xl font-bold mb-4">WHY IT MATTERS?</h2>
+                    <h2 class="text-3xl font-bold mb-4">Education Shapes the Future</h2>
                     <p class="text-lg leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                        incididunt ut labore et dolore magna aliqua.
+                        Education is the foundation of every prosperous society. It breaks the cycle of poverty, 
+                        empowers individuals to realize their full potential, and fosters sustainable, resilient communities. 
+                        Together, we can build a future where opportunity is universal.
                     </p>
                 </div>
             </div>

@@ -25,20 +25,25 @@ use Illuminate\Support\Str;
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-document-minus';
-
-    protected static ?string $navigationGroup = 'Blog';
-
+    protected static ?string $navigationGroup = 'Lessons';
     protected static ?string $recordTitleAttribute = 'title';
-
     protected static ?int $navigationSort = 3;
-
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getNavigationBadge(): ?string
     {
         return Post::count();
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Lessons';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Lesson';
     }
 
     public static function form(Form $form): Form
@@ -53,18 +58,15 @@ class PostResource extends Resource
             ->deferLoading()
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->description(function (Post $record) {
-                        return Str::limit($record->sub_title, 40);
-                    })
-                    ->searchable()->limit(20),
+                    ->description(fn(Post $record) => Str::limit($record->sub_title, 40))
+                    ->searchable()
+                    ->limit(20),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
-                    ->color(function ($state) {
-                        return $state->getColor();
-                    }),
+                    ->color(fn($state) => $state->getColor()),
                 Tables\Columns\ImageColumn::make('cover_photo_path')->label('Cover Photo'),
 
-                UserPhotoName::make('user')
+                Tables\Columns\TextColumn::make('user.name')
                     ->label('Author'),
 
                 Tables\Columns\TextColumn::make('created_at')
@@ -75,10 +77,11 @@ class PostResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->defaultSort('id', 'desc')
+            ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('user')
-                    ->relationship('user', config('filamentblog.user.columns.name'))
+                    ->relationship('user', 'name')
                     ->searchable()
                     ->preload()
                     ->multiple(),
@@ -99,7 +102,7 @@ class PostResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
-            Section::make('Post')
+            Section::make('Lesson')
                 ->schema([
                     Fieldset::make('General')
                         ->schema([
@@ -110,16 +113,12 @@ class PostResource extends Resource
                     Fieldset::make('Publish Information')
                         ->schema([
                             TextEntry::make('status')
-                                ->badge()->color(function ($state) {
-                                    return $state->getColor();
-                                }),
-                            TextEntry::make('published_at')->visible(function (Post $record) {
-                                return $record->status === PostStatus::PUBLISHED;
-                            }),
-
-                            TextEntry::make('scheduled_for')->visible(function (Post $record) {
-                                return $record->status === PostStatus::SCHEDULED;
-                            }),
+                                ->badge()
+                                ->color(fn($state) => $state->getColor()),
+                            TextEntry::make('published_at')
+                                ->visible(fn(Post $record) => $record->status === PostStatus::PUBLISHED),
+                            TextEntry::make('scheduled_for')
+                                ->visible(fn(Post $record) => $record->status === PostStatus::SCHEDULED),
                         ]),
                     Fieldset::make('Description')
                         ->schema([
@@ -143,10 +142,7 @@ class PostResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //            \Firefly\FilamentBlog\Resources\PostResource\RelationManagers\SeoDetailRelationManager::class,
-            //            \Firefly\FilamentBlog\Resources\PostResource\RelationManagers\CommentsRelationManager::class,
-        ];
+        return [];
     }
 
     public static function getWidgets(): array

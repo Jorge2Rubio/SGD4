@@ -10,6 +10,11 @@ use App\Http\Controllers\GoogleController;
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+// in routes/web.php
+Route::get('/news', function () {
+    return view('news');
+});
+
 
 Route::get('/donate', function () {
     return view('donate-now');

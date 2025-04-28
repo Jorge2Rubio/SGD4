@@ -1,5 +1,5 @@
 @props(['post'])
-<form action="{{ route('filamentblog.comment.store', ['post' => $post->slug]) }}" method="POST" id="comments">
+<form action="{{ route('filamentlessons.comment.store', ['post' => $post->slug]) }}" method="POST" id="comments">
     @csrf
     <div class="border-t-2 py-10">
         <div class="mb-7">
@@ -20,7 +20,7 @@
             @if(auth()->user()?->canComment())
                 <button type="submit"
                         class="g-recaptcha bg-primary-600 hover:bg-primary-700 rounded-lg px-8 py-4 font-semibold text-white transition-all duration-300"
-                        @if(config('filamentblog.recaptcha.enabled')) data-sitekey="{{ config('filamentblog.recaptcha.site_key') }}"
+                        @if(config('filamentlessons.recaptcha.enabled')) data-sitekey="{{ config('filamentlessons.recaptcha.site_key') }}"
                         @endif
                         data-callback='onSubmit'
                         data-action='submit'
@@ -29,7 +29,7 @@
                 </button>
             @else
                 <a
-                        href="{{ route(config('filamentblog.route.login.name')) }}"
+                        href="{{ route(config('filamentlessons.route.login.name')) }}"
                         class="bg-primary-600 hover:bg-primary-700 rounded-lg px-8 py-4 font-semibold text-white transition-all duration-300">
                     <span>Login</span>
                 </a>
