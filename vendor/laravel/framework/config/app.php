@@ -167,8 +167,7 @@ return [
         // Package Service Providers...
     ])->merge([
         // Application Service Providers...
-        App\Providers\AppServiceProvider::class,
-        Ixudra\Curl\CurlServiceProvider::class,
+        // App\Providers\AppServiceProvider::class,
     ])->merge([
         // Added Service Providers (Do not remove this line)...
     ])->toArray(),
@@ -186,7 +185,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'Curl'          => Ixudra\Curl\Facades\Curl::class,
     ])->toArray(),
 
 ];

@@ -8,29 +8,35 @@ use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller{
 
-    public function pay(){
+    public function pay(Request $request){
+        $amount = $request->input('amount') * 100; // Convert to cents
+    
+        if ($amount < 200000) {
+            return back()->with('error', 'Minimum donation amount is PHP 2000.00');
+        }
+    
         $data = [
             'data' => [
                'attributes' => [
                     'line_items' => [
-                            [
-                                    'currency'    => 'PHP',
-                                    'amount'      => 1000000, //the amount shold not be less than 2000
-                                    'description' => 'Donation', 
-                                    'name'        => 'Donation',
-                                    'quantity'    => 1, 
-                            ] 
-                        ],
-                        'payment_method_types' => [
-                            'card',
-                            'gcash',
-                        ],
-                        'success_url' => 'http://localhost:8000',
-                        'cancel_url' => 'http://localhost:8000',
-                        'description' => 'text'
+                        [
+                            'currency'    => 'PHP',
+                            'amount'      => $amount,
+                            'description' => 'Donation', 
+                            'name'        => 'Donation',
+                            'quantity'    => 1, 
+                        ] 
                     ],
-                ]
-            ];
+                    'payment_method_types' => [
+                        'card',
+                        'gcash',
+                    ],
+                    'success_url' => url('/success'),
+                    'cancel_url' => url('/cancel'),
+                    'description' => 'Donation Payment'
+                ],
+            ]
+        ];
     
         $response = Curl::to('https://api.paymongo.com/v1/checkout_sessions')
             ->withHeader('Content-Type: application/json')
@@ -40,15 +46,14 @@ class PaymentController extends Controller{
             ->asJson()
             ->post();
         
-            if (isset($response->data)) {
-                Session::put('session_id', $response->data->id);
-                return redirect()->to($response->data->attributes->checkout_url);
-            } else {
-                // Handle error or response without data property
-                dd('Error: Data property not found', $response);
-            }
-            
+        if (isset($response->data)) {
+            Session::put('session_id', $response->data->id);
+            return redirect()->to($response->data->attributes->checkout_url);
+        } else {
+            return back()->with('error', 'Payment request failed.');
+        }
     }
+    
     
     
 

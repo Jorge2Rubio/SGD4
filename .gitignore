@@ -10,7 +10,7 @@
 /vendor/laravel/framework/src/Illuminate/Http/StreamedEvent.php
 /vendor/laravel/framework/src/Illuminate/Log/Context/ContextLogProcessor.php
 /vendor/laravel/framework/src/Illuminate/Log/vendor/
-/database/database.sqlite
+/database/database.sqlite   
 .env.backup
 .env.production
 .phpactor.json
